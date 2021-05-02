@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { TranscodeModule } from './transcode/transcode.module';
 
 @Module({
-  imports: [],
+  imports: [TranscodeModule],
   controllers: [AppController],
   providers: [AppService],
 })
