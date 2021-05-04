@@ -1,11 +1,20 @@
 import { Queue } from 'bull';
-import { Injectable } from '@nestjs/common';
-import { InjectQueue } from '@nestjs/bull';
+import { ModuleRef } from '@nestjs/core';
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { getQueueToken } from '@nestjs/bull';
 import { JobDto } from './dto';
 
 @Injectable()
-export class TranscodeService {
-  constructor(@InjectQueue('transcode.video') private videoQueue: Queue) {}
+export class TranscodeService implements OnModuleInit {
+  private videoQueue: Queue;
+
+  constructor(private moduleRef: ModuleRef) {}
+
+  onModuleInit() {
+    this.videoQueue = this.moduleRef.get(getQueueToken(), {
+      strict: false,
+    });
+  }
 
   async createJob(job: JobDto): Promise<string> {
     // save job in db
