@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bull';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TranscodeService } from './transcode.service';
-import { TranscodeController } from './transcode.controller';
+import { JobService } from './job.service';
+import { JobController } from './job.controller';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { TranscodeController } from './transcode.controller';
       inject: [ConfigService],
     }),
   ],
-  providers: [TranscodeService],
-  controllers: [TranscodeController],
+  providers: [JobService],
+  controllers: [JobController],
 })
-export class TranscodeModule {}
+export class JobModule {}

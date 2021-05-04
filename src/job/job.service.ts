@@ -5,7 +5,7 @@ import { getQueueToken } from '@nestjs/bull';
 import { JobDto } from './dto';
 
 @Injectable()
-export class TranscodeService implements OnModuleInit {
+export class JobService implements OnModuleInit {
   private videoQueue: Queue;
 
   constructor(private moduleRef: ModuleRef) {}

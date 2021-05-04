@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configSchema } from './config/validation';
-import { TranscodeModule } from './transcode/transcode.module';
+import { JobModule } from './job/job.module';
 
 @Module({
   imports: [
@@ -36,7 +36,7 @@ import { TranscodeModule } from './transcode/transcode.module';
       }),
       inject: [ConfigService],
     }),
-    TranscodeModule,
+    JobModule,
   ],
   controllers: [],
   providers: [],

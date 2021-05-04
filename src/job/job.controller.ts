@@ -1,10 +1,10 @@
 import { Controller, Post } from '@nestjs/common';
-import { TranscodeService } from './transcode.service';
+import { JobService } from './job.service';
 import { JobDto } from './dto/job.dto';
 
-@Controller('transcode')
-export class TranscodeController {
-  constructor(private transcodeService: TranscodeService) {}
+@Controller('job')
+export class JobController {
+  constructor(private transcodeService: JobService) {}
 
   @Post()
   createJob(job: JobDto): Promise<string> {
