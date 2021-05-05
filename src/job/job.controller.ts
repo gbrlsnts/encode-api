@@ -17,7 +17,7 @@ export class JobController {
 
   @Get()
   getJobs(): Promise<Job[]> {
-    return this.jobService.getJobs();
+    return this.jobService.getJobs(['status']);
   }
 
   @Get('/:id')

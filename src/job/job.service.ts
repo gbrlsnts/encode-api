@@ -25,10 +25,13 @@ export class JobService {
 
   /**
    * Get all jobs
+   * @param relations which relations to load
    * @returns Job[]
    */
-  getJobs(): Promise<Job[]> {
-    return this.jobRepository.find();
+  getJobs(relations: string[] = []): Promise<Job[]> {
+    return this.jobRepository.find({
+      relations,
+    });
   }
 
   /**
