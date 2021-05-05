@@ -1,4 +1,3 @@
-import { JobStatus } from './job-status.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,6 +6,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { JobStatus } from './job-status.entity';
 
 @Entity()
 export class Job {
@@ -14,6 +15,7 @@ export class Job {
   id: number;
 
   @Column()
+  @Exclude()
   statusId: number;
 
   @CreateDateColumn()

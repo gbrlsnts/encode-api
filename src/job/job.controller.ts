@@ -1,9 +1,17 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
 import { Job } from './model';
 import { JobDto } from './dto/job.dto';
 import { JobService } from './job.service';
 
 @Controller('job')
+@UseInterceptors(ClassSerializerInterceptor)
 export class JobController {
   constructor(private jobService: JobService) {}
 
@@ -14,7 +22,7 @@ export class JobController {
 
   @Get('/:id')
   getJobsById(@Param('id') id: number): Promise<Job> {
-    return this.jobService.getJobById(id);
+    return this.jobService.getJobById(id, ['status']);
   }
 
   @Post()

@@ -34,10 +34,13 @@ export class JobService {
   /**
    * Get a job by id
    * @param jobId job id
+   * @param relations which relations to load
    * @returns Job
    */
-  async getJobById(jobId: number): Promise<Job> {
-    const job = await this.jobRepository.findOne(jobId);
+  async getJobById(jobId: number, relations: string[] = []): Promise<Job> {
+    const job = await this.jobRepository.findOne(jobId, {
+      relations,
+    });
 
     if (!job) throw new NotFoundException();
 
