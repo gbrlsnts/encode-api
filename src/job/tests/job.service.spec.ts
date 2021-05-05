@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { JobService } from './job.service';
+import { JobService } from '../job.service';
 
-describe('TranscodeService', () => {
+describe('JobService', () => {
   let service: JobService;
 
   beforeEach(async () => {

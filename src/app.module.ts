@@ -39,6 +39,5 @@ import { JobModule } from './job/job.module';
     JobModule,
   ],
   controllers: [],
-  providers: [],
 })
 export class AppModule {}
