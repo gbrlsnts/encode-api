@@ -18,6 +18,10 @@ import { JobModule } from './job/job.module';
         redis: {
           host: configService.get<string>('REDIS_HOST'),
           port: configService.get<number>('REDIS_PORT'),
+          commandTimeout: 2000,
+          enableReadyCheck: true,
+          autoResendUnfulfilledCommands: false,
+          reconnectOnError: () => true,
         },
       }),
       inject: [ConfigService],

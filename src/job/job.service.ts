@@ -1,4 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Connection } from 'typeorm';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  ServiceUnavailableException,
+} from '@nestjs/common';
 import { Job, JobRepository } from './model/';
 import { JobQueueService } from './job-queue.service';
 import { JobDto } from './dto';
@@ -7,7 +13,10 @@ import { JobStatusService } from './job-status.service';
 
 @Injectable()
 export class JobService {
+  private readonly logger = new Logger(JobService.name);
+
   constructor(
+    private connection: Connection,
     @InjectRepository(JobRepository)
     private jobRepository: JobRepository,
     private jobStatusService: JobStatusService,
@@ -47,13 +56,29 @@ export class JobService {
       status,
     });
 
-    const savedJob = await this.jobRepository.save(dbJob);
+    const queryRunner = this.connection.createQueryRunner();
 
-    await this.jobQueueService.queueJob({
-      jobId: savedJob.id,
-      query: job,
-    });
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
 
-    return savedJob;
+    try {
+      const savedJob = await queryRunner.manager.save(dbJob);
+
+      await this.jobQueueService.queueJob({
+        jobId: savedJob.id,
+        query: job,
+      });
+
+      await queryRunner.commitTransaction();
+
+      return savedJob;
+    } catch (error) {
+      this.logger.error(error, error?.trace);
+      await queryRunner.rollbackTransaction();
+
+      throw new ServiceUnavailableException();
+    } finally {
+      await queryRunner.release();
+    }
   }
 }
