@@ -4,7 +4,7 @@ import {
   OutputAudioCodec,
 } from '../types/encoding.type';
 
-export class JobOutput {
+export class JobOutputDto {
   format: OutputFormat;
   videocodec?: OutputVideoCodec;
   videoBitrate?: number;
