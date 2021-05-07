@@ -1,4 +1,5 @@
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
   Get,
@@ -26,7 +27,7 @@ export class JobController {
   }
 
   @Post()
-  createJob(job: JobDto): Promise<Job> {
+  createJob(@Body() job: JobDto): Promise<Job> {
     return this.jobService.createJob(job);
   }
 }

@@ -1,9 +1,27 @@
-import { JobDestinationTypeDto } from './job-destination-type.dto';
+import {
+  ArrayNotEmpty,
+  IsNotEmpty,
+  IsUrl,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 import { JobDestinationDto } from './job-destination.dto';
 import { JobOutputDto } from './job-output.dto';
+import { jobUrlValidation, sourceProtocols } from '../../config';
 
 export class JobDto {
+  @IsUrl(jobUrlValidation(sourceProtocols))
   source: string;
-  destination: JobDestinationTypeDto & JobDestinationDto;
+
+  @Type(() => JobDestinationDto)
+  @ValidateNested()
+  @IsNotEmpty()
+  destination: JobDestinationDto;
+
+  @Type(() => JobOutputDto)
+  @ValidateNested({
+    each: true,
+  })
+  @ArrayNotEmpty()
   output: JobOutputDto[];
 }
