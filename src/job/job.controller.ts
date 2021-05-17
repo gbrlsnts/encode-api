@@ -8,7 +8,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { Job } from './model';
-import { JobDto } from './dto/job.dto';
+import { JobMultiOutputDto } from './dto/job-multi-out.dto';
 import { JobService } from './job.service';
 
 @Controller('job')
@@ -27,7 +27,7 @@ export class JobController {
   }
 
   @Post()
-  createJob(@Body() job: JobDto): Promise<Job> {
+  createJob(@Body() job: JobMultiOutputDto): Promise<Job> {
     return this.jobService.createJob(job);
   }
 }

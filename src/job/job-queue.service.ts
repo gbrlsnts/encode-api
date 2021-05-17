@@ -21,9 +21,22 @@ export class JobQueueService implements OnModuleInit {
    * @param job job data
    * @returns id in queue
    */
-  async queueJob(job: JobQueueItem): Promise<string> {
-    const queuedJob = await this.videoQueue.add(job);
+  async queueJob(job: JobQueueItem): Promise<string[]> {
+    const outputs = Array.isArray(job.query.output)
+      ? job.query.output
+      : [job.query.output];
 
-    return queuedJob.id.toString();
+    const jobs: JobQueueItem[] = outputs.map((output) => ({
+      jobId: job.jobId,
+      query: {
+        source: job.query.source,
+        destination: job.query.destination,
+        output,
+      },
+    }));
+
+    const results = await Promise.all(jobs.map((j) => this.videoQueue.add(j)));
+
+    return results.map((r) => r.id.toString());
   }
 }

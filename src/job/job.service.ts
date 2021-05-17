@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { Job, JobRepository } from './model/';
 import { JobQueueService } from './job-queue.service';
-import { JobDto } from './dto';
+import { JobMultiOutputDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JobStatusService } from './job-status.service';
 
@@ -55,7 +55,7 @@ export class JobService {
    * @param job job data
    * @returns Job
    */
-  async createJob(job: JobDto): Promise<Job> {
+  async createJob(job: JobMultiOutputDto): Promise<Job> {
     const status = await this.jobStatusService.getFirstStatus();
 
     const dbJob = this.jobRepository.create({
