@@ -1,5 +1,4 @@
-import { Optional } from '@nestjs/common';
-import { IsNotEmpty, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsUrl } from 'class-validator';
 import { jobUrlValidation, destinationProtocols } from '../../config/';
 
 export class JobDestinationDto {
@@ -7,10 +6,10 @@ export class JobDestinationDto {
   url: string;
 
   @IsNotEmpty()
-  @Optional()
+  @IsOptional()
   key: string;
 
   @IsNotEmpty()
-  @Optional()
+  @IsOptional()
   secret: string;
 }
