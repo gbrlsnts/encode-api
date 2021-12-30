@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import { Exclude, Transform } from 'class-transformer';
 import { JobStatus } from './job-status.entity';
 
 @Entity()
@@ -25,5 +25,6 @@ export class Job {
   updatedAt: Date;
 
   @ManyToOne(() => JobStatus)
+  @Transform(({ value }) => value.code)
   status: JobStatus;
 }
