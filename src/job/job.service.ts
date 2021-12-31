@@ -60,6 +60,7 @@ export class JobService {
 
     const dbJob = this.jobRepository.create({
       status,
+      query: job,
     });
 
     const queryRunner = this.connection.createQueryRunner();
