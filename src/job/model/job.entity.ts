@@ -11,8 +11,8 @@ import { JobStatus } from './job-status.entity';
 
 @Entity()
 export class Job {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   @Exclude()

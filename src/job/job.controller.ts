@@ -22,7 +22,7 @@ export class JobController {
   }
 
   @Get('/:id')
-  getJobsById(@Param('id') id: number): Promise<Job> {
+  getJobsById(@Param('id') id: string): Promise<Job> {
     return this.jobService.getJobById(id, ['status']);
   }
 

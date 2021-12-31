@@ -40,7 +40,7 @@ export class JobService {
    * @param relations which relations to load
    * @returns Job
    */
-  async getJobById(jobId: number, relations: string[] = []): Promise<Job> {
+  async getJobById(jobId: string, relations: string[] = []): Promise<Job> {
     const job = await this.jobRepository.findOne(jobId, {
       relations,
     });
