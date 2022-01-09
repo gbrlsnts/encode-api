@@ -26,6 +26,7 @@ export class Job {
   updatedAt: Date;
 
   @Column({ type: 'json' })
+  @Exclude()
   query: JobMultiOutputDto;
 
   @ManyToOne(() => JobStatus)
