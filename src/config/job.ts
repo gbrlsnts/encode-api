@@ -1,7 +1,6 @@
 /* Retrieval & Storage */
 
-export const sourceProtocols = ['http', 'https', 's3'];
-export const destinationProtocols = ['http', 'https', 'ftp', 's3'];
+export const validProtocols = ['http', 'https', 'ftp', 's3'];
 
 export const jobUrlValidation = (protocols) => ({
   require_protocol: true,
