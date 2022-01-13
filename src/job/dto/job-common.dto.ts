@@ -1,15 +1,16 @@
 import { IsNotEmpty, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import { JobResourceDto } from './job-resource.dto';
+import { JobSourceDto } from './job-source.dto';
+import { JobDestinationDto } from './job-destination.dto';
 
 export class JobCommonDto {
-  @Type(() => JobResourceDto)
+  @Type(() => JobSourceDto)
   @ValidateNested()
   @IsNotEmpty()
-  source: JobResourceDto;
+  source: JobSourceDto;
 
-  @Type(() => JobResourceDto)
+  @Type(() => JobDestinationDto)
   @ValidateNested()
   @IsNotEmpty()
-  destination: JobResourceDto;
+  destination: JobDestinationDto;
 }

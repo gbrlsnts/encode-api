@@ -1,9 +1,15 @@
 import { IsNotEmpty, IsOptional, IsUrl, ValidateIf } from 'class-validator';
-import { jobUrlValidation, validProtocols } from 'src/config';
+import {
+  jobUrlValidation,
+  validSourceProtocols,
+  validDestinationProtocols,
+} from 'src/config';
 import { FtpStorageDto, HttpStorageDto, S3StorageDto } from './storage';
 
 export class JobResourceDto {
-  @IsUrl(jobUrlValidation(validProtocols))
+  @IsUrl(
+    jobUrlValidation(validSourceProtocols.concat(validDestinationProtocols)),
+  )
   @IsNotEmpty()
   url: string;
 
