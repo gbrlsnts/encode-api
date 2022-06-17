@@ -1,5 +1,6 @@
 import { Connection } from 'typeorm';
 import {
+  ConflictException,
   Injectable,
   Logger,
   NotFoundException,
@@ -87,5 +88,28 @@ export class JobService {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  /**
+   * Set a new status Id for a job
+   * @param jobId Job to set the new status
+   * @param statusId Status to set
+   * @returns The updated job
+   */
+  async setJobStatus(jobId: string, statusId: number): Promise<Job> {
+    const job = await this.jobRepository.findOne(jobId, {
+      relations: ['status'],
+    });
+
+    const status = await this.jobStatusService.getStatusById(statusId);
+
+    if (job.status.order > status.order)
+      throw new ConflictException(
+        'Status can not be updated to previous value',
+      );
+
+    job.statusId = statusId;
+
+    return this.jobRepository.save(job);
   }
 }

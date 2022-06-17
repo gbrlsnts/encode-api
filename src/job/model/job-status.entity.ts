@@ -17,3 +17,15 @@ export class JobStatus {
   @Exclude()
   order: number;
 }
+
+/**
+ * Available statuses
+ */
+export const JobStatusAvailable = {
+  QUEUE: 'QUEUE',
+  DOWNLOAD: 'DOWNLOAD',
+  ENCODE: 'ENCODE',
+  SAVE: 'SAVE',
+  COMPLETE: 'COMPLETE',
+  FAIL: 'FAIL',
+};
